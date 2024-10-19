@@ -1,0 +1,96 @@
+import numpy as np
+
+# Function to return mod 26 of a number
+def mod26(x):
+    return x % 26
+
+# Function to convert character to integer (A = 0, B = 1, ..., Z = 25)
+def char_to_int(char):
+    val = ord(char.upper()) - ord('A')
+    return val
+
+# Function to convert integer to character (0 = A, 1 = B, ..., 25 = Z)
+def int_to_char(val):
+    return chr(val + ord('A'))
+
+# Function to prepare the message (remove non-alphabet characters and convert to uppercase)
+def prepare_message(message):
+    cleaned_message = ''.join([char.upper() for char in message if char.isalpha()])
+    return cleaned_message
+
+# Function to get the key matrix from the user
+def get_key_matrix():
+    key_size = int(input("Enter the size of the key matrix (must be square): "))
+    key_matrix = []
+    
+    for i in range(key_size):
+        row_elements = [int(x) for x in input(f"Enter row {i+1} elements (separated by spaces): ").split()]
+        if len(row_elements) != key_size:
+            print(f"Invalid number of elements in row {i+1}.")
+            return None
+        key_matrix.append(row_elements)
+    
+    return np.array(key_matrix)
+
+# Function to calculate the inverse of the matrix mod 26
+def calculate_inverse(matrix):
+    try:
+        determinant = int(round(np.linalg.det(matrix)))  # Calculate the determinant
+        determinant_inv = pow(determinant, -1, 26)  # Find the modular inverse of determinant mod 26
+        matrix_mod_inv = np.linalg.inv(matrix).T * determinant * determinant_inv % 26  # Inverse mod 26
+        return matrix_mod_inv.astype(int) % 26  # Return as integers mod 26
+    except np.linalg.LinAlgError:
+        print("Key matrix is not invertible. Decryption not possible.")
+        return None
+
+# Function to encrypt the message using the Hill cipher
+def encrypt(message, key):
+    message = prepare_message(message)
+    key_size = len(key)
+
+    # Padding if necessary
+    if len(message) % key_size != 0:
+        message += 'X' * (key_size - len(message) % key_size)
+
+    cipher = []
+    for i in range(0, len(message), key_size):
+        block = [char_to_int(c) for c in message[i:i + key_size]]
+        encrypted_block = np.dot(key, block) % 26
+        cipher.extend([int_to_char(val) for val in encrypted_block])
+
+    return ''.join(cipher)
+
+# Function to decrypt the ciphertext using the Hill cipher
+def decrypt(ciphertext, key):
+    key_inv = calculate_inverse(key)  # Calculate the inverse of the key matrix
+    if key_inv is None:
+        return "Error: Key matrix is not invertible. Decryption not possible."
+
+    key_size = len(key)
+    plaintext = []
+
+    for i in range(0, len(ciphertext), key_size):
+        block = [char_to_int(c) for c in ciphertext[i:i + key_size]]
+        decrypted_block = np.dot(key_inv, block) % 26
+        plaintext.extend([int_to_char(val) for val in decrypted_block])
+
+    return ''.join(plaintext)
+
+# Main program for encryption or decryption
+if __name__ == "__main__":
+    choice = input("Enter 'E' for Encryption or 'D' for Decryption: ").upper()
+
+    if choice == 'E':
+        message = input("Enter the message to encrypt: ")
+        key = get_key_matrix()
+        if key is not None:
+            ciphertext = encrypt(message, key)
+            print("Encrypted Message:", ciphertext)
+    elif choice == 'D':
+        ciphertext = input("Enter the ciphertext to decrypt: ")
+        key = get_key_matrix()
+        if key is not None:
+            decrypted_message = decrypt(ciphertext, key)
+            print("Decrypted Message:", decrypted_message)
+    else:
+        print("Invalid choice. Please enter 'E' or 'D'.")
