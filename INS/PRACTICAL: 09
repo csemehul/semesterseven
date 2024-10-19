@@ -1,0 +1,56 @@
+import math
+
+# Function to calculate GCD
+def gcd(a, h):
+    while h:
+        a, h = h, a % h
+    return a
+
+# Function to compute the modular inverse using Extended Euclidean Algorithm
+def mod_inverse(e, phi):
+    # Extended Euclidean Algorithm
+    for k in range(1, 10):  # Limit k for practical reasons, adjust as needed
+        d = (1 + (k * phi)) / e
+        if d.is_integer():
+            return int(d)
+    return None
+
+# Main function
+def main():
+    # Step 1: Choose two prime numbers p and q
+    p = 3
+    q = 7
+    n = p * q
+    phi = (p - 1) * (q - 1)
+
+    # Step 2: Choose e such that 1 < e < phi and gcd(e, phi) = 1
+    e = 2
+    while e < phi:
+        if gcd(e, phi) == 1:
+            break
+        e += 1
+
+    # Step 3: Compute d, the modular inverse of e
+    d = mod_inverse(e, phi)
+    if d is None:
+        print("No valid d found.")
+        return
+
+    print(f"Public key (e, n): ({e}, {n})")
+    print(f"Private key (d, n): ({d}, {n})")
+
+    # Message to be encrypted
+    msg = 12
+    print("Message data =", msg)
+
+    # Step 4: Encrypt the message
+    c = pow(msg, e, n)
+    print("Encrypted data =", c)
+
+    # Step 5: Decrypt the message
+    m = pow(c, d, n)
+    print("Original Message Sent =", m)
+
+# Driver code
+if __name__ == "__main__":
+    main()
