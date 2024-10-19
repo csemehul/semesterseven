@@ -1,0 +1,41 @@
+1. Mode Calculation:
+import statistics as st
+a = [20, 10, 50, 10, 21, 90]
+s = st.mode(a)
+print("Mode:", s)  # Mode: 10
+
+2. Numpy Array Operations:
+import numpy as np
+b = np.array([[10, 20, 30, 50, 10], [1, 2, 3, 5, 6], [1, 1, 1, 1, 1]])
+print(b)
+print("Dim:", b.ndim)
+print("Shape:", b.shape)
+print("Size:", b.size)
+print("Item Size:", b.itemsize)
+print("Data type:", b.dtype)
+
+3. Mean Calculation:
+m = st.mean(a)
+print("Mean:", m)  # Mean: 33.5
+
+4. Array Reshaping and Slicing:
+d = np.arange(0, 100, 2)
+e = np.reshape(d, (10, 5))
+f = np.reshape(e, (2, 5, 5))
+print(f)
+print("Last element:", d[10])
+print("Element up to 10:", d[:10])  # [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+print("Last 5 elements:", d[-5:])  # [90, 92, 94, 96, 98]
+print("Alternative Numbers:", d[::2])  # [0, 4, 8, 12, 16, ... 96]
+
+5. Pandas DataFrame Creation:
+import pandas as pd
+p_dict = {
+    'pid': [1, 2, 3, 4, 5],
+    'pname': ['A', 'B', 'C', 'D', 'E'],
+    'price': [10, 20, 30, 40, 50],
+    'vendor': ['V1', 'V2', 'V3', 'V4', 'V5']
+}
+
+df = pd.DataFrame(p_dict)
+print(df)
