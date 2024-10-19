@@ -1,0 +1,45 @@
+# Function to calculate (a^b) % p
+def power(a, b, p):
+    if b == 1:
+        return a
+    else:
+        return pow(a, b) % p
+
+# Main function to implement Diffie-Hellman key exchange
+def main():
+    # Both persons agree upon the public keys G and P
+    # A prime number P is taken
+    P = 23
+    print("The value of P:", P)
+    
+    # A primitive root for P, G is taken
+    G = 9
+    print("The value of G:", G)
+
+    # Private key for Roshan
+    a = 4
+    print("The private key a for mehul:", a)
+
+    # Roshan computes x = G^a mod P
+    x = power(G, a, P)
+
+    # Private key for Ajit
+    b = 3
+    print("The private key b for singh:", b)
+
+    # Ajit computes y = G^b mod P
+    y = power(G, b, P)
+
+    # Roshan computes the secret key as ka = y^a mod P
+    ka = power(y, a, P)
+
+    # Ajit computes the secret key as kb = x^b mod P
+    kb = power(x, b, P)
+
+    # Printing the secret keys for both parties
+    print("Secret key for mehul is:", ka)
+    print("Secret key for singh is:", kb)
+
+# Driver code
+if __name__ == "__main__":
+    main()
