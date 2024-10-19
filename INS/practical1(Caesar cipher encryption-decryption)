@@ -1,0 +1,33 @@
+class CaesarCipher:
+    @staticmethod
+    def encryption(text, shift):
+        result = ""
+        for char in text:
+            if char.isalpha():
+                base = ord('A') if char.isupper() else ord('a')
+                new_ord = (ord(char) - base + shift) % 26 + base
+                result += chr(new_ord)
+            else:
+                result += char
+        return result
+
+    @staticmethod
+    def decryption(text, shift):
+        result = ""
+        for char in text:
+            if char.isalpha():
+                base = ord('A') if char.isupper() else ord('a')
+                new_ord = (ord(char) - base - shift) % 26 + base
+                result += chr(new_ord)
+            else:
+                result += char
+        return result
+
+# Example usage
+plain_text = "Mehul Singh Rajput MSR"
+shift_value = 3
+cipher_text = CaesarCipher.encryption(plain_text, shift_value)
+print(f"Plain Text: {plain_text}")
+print(f"Cipher Text: {cipher_text}")
+decrypted_text = CaesarCipher.decryption(cipher_text, shift_value)
+print(f"Decrypted Text: {decrypted_text}")
