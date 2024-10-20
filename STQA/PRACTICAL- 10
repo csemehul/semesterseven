@@ -1,0 +1,50 @@
+In this program, we will use Selenium WebDriver to count the total number of web elements (objects) present on a webpage. Web elements can be anything like text fields, buttons, images, divs, etc.
+
+Step 1: Setup Selenium WebDriver for Java
+
+Make sure you have set up Selenium WebDriver and your development environment as described in the previous tasks.
+
+ Step 2: Writing the Program
+
+Here's a Selenium WebDriver script in Java that counts and prints the total number of elements present on a specific web page.
+
+```java
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.List;
+
+public class CountObjectsOnPage {
+
+    public static void main(String[] args) {
+        // Set the path for the ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path_to_chromedriver");
+
+        // Initialize the Chrome WebDriver
+        WebDriver driver = new ChromeDriver();
+
+        // Navigate to the desired webpage
+        driver.get("https://example.com");
+
+        // Find all elements on the page using a wildcard CSS selector
+        List<WebElement> allElements = driver.findElements(By.xpath("//"));
+
+        // Get the count of elements
+        int totalObjects = allElements.size();
+
+        // Print the total number of objects
+        System.out.println("Total number of objects on the page: " + totalObjects);
+
+        // Optionally, list the tag names of the objects
+        for (WebElement element : allElements) {
+            System.out.println("Element: " + element.getTagName());
+        }
+
+        // Close the browser after the test
+        driver.quit();
+    }
+}
+```
+
