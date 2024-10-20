@@ -1,0 +1,128 @@
+ AIM: Using Selenium IDE, write a test suite containing a minimum of 4 test cases.
+
+Selenium IDE is a popular tool for recording, editing, and debugging functional test cases for web applications. Here's how you can create a test suite with 4 test cases using Selenium IDE.
+
+ Pre-requisites:
+1. Install the Selenium IDE as a browser extension (available for Chrome and Firefox).
+2. Familiarity with basic navigation in the Selenium IDE.
+3. Have a web application or website to test (for example, a demo website like [https://example.com](https://example.com)).
+
+ Test Suite Overview:
+The test suite will contain the following 4 test cases:
+1. Login Test: Validate login with valid credentials.
+2. Search Test: Verify the search functionality.
+3. Form Submission Test: Ensure form submission works correctly.
+4. Logout Test: Confirm that the user can log out successfully.
+
+ Steps to Create the Test Suite:
+
+ Step 1: Open Selenium IDE
+1. Launch the Selenium IDE browser extension.
+2. Click on "Create a New Project," and name your project "Web App Test Suite."
+3. You can now create individual test cases.
+
+ Step 2: Record and Add Test Cases
+
+---
+
+ Test Case 1: Login Test
+
+Objective: Verify that users can log in with valid credentials.
+
+1. Start recording in Selenium IDE.
+2. Open the URL of your test application (e.g., `https://example.com/login`).
+3. Enter valid credentials (e.g., username and password).
+4. Click the Login button.
+5. Verify that the user is redirected to the dashboard or home page (using the assert or verify command).
+6. Stop recording and save the test case as "Login Test."
+
+Steps recorded in Selenium IDE:
+```plaintext
+open | https://example.com/login
+type | id=username | testuser
+type | id=password | password123
+click | id=loginButton
+assertTitle | Dashboard
+```
+
+---
+
+ Test Case 2: Search Test
+
+Objective: Verify that the search functionality works as expected.
+
+1. Start a new recording in Selenium IDE.
+2. Navigate to the homepage or the page containing the search feature (e.g., `https://example.com`).
+3. Enter a search term in the search bar (e.g., "testing").
+4. Click on the Search button.
+5. Verify that the search results page is displayed and contains relevant results.
+6. Stop recording and save the test case as "Search Test."
+
+Steps recorded in Selenium IDE:
+```plaintext
+open | https://example.com
+type | id=searchBar | testing
+click | id=searchButton
+assertText | id=searchResults | Testing Results
+```
+
+---
+
+ Test Case 3: Form Submission Test
+
+Objective: Validate that form submission works correctly.
+
+1. Start recording a new test in Selenium IDE.
+2. Navigate to the form page (e.g., `https://example.com/contact`).
+3. Fill in the form fields (name, email, message, etc.).
+4. Submit the form.
+5. Verify that a confirmation message or redirect occurs after the form is submitted.
+6. Stop recording and save the test case as "Form Submission Test."
+
+Steps recorded in Selenium IDE:
+```plaintext
+open | https://example.com/contact
+type | id=name | John Doe
+type | id=email | johndoe@example.com
+type | id=message | This is a test message.
+click | id=submitButton
+assertText | id=confirmationMessage | Thank you for contacting us!
+```
+
+---
+
+ Test Case 4: Logout Test
+
+Objective: Verify that users can log out from the application.
+
+1. Start recording a new test in Selenium IDE.
+2. Make sure the user is logged in (use the login test if needed).
+3. Click on the Logout button or link.
+4. Verify that the user is redirected to the login page or receives a logged-out confirmation.
+5. Stop recording and save the test case as "Logout Test."
+
+Steps recorded in Selenium IDE:
+```plaintext
+click | id=logoutLink
+assertTitle | Login
+```
+
+---
+
+ Step 3: Create a Test Suite
+
+1. In the Selenium IDE project window, click on the "Test Suite" tab.
+2. Add the 4 test cases created earlier (Login Test, Search Test, Form Submission Test, Logout Test) to this test suite.
+3. Save the test suite with a meaningful name, like "Web App Test Suite."
+
+---
+
+ Step 4: Run the Test Suite
+
+1. Click on the "Play Suite" button in Selenium IDE to run all the test cases in sequence.
+2. Monitor the execution and ensure that all tests pass.
+
+---
+
+ Conclusion:
+You have now created a test suite in Selenium IDE with 4 test cases that cover login, search, form submission, and logout functionalities. This approach can be applied to automate tests for various web applications to improve test efficiency and coverage.
