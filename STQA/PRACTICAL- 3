@@ -1,0 +1,96 @@
+To design independent paths by calculating cyclomatic complexity for a "Date Problem" scenario, we first need to understand cyclomatic complexity and how it relates to path testing.
+
+ Cyclomatic Complexity:
+Cyclomatic complexity is a software metric that helps determine the number of independent paths through a program. It is calculated from the control flow graph of the program and is defined as:
+
+[ V(G) = E - N + 2P ]
+
+Where:
+- ( E ) = Number of edges in the control flow graph
+- ( N ) = Number of nodes in the control flow graph
+- ( P ) = Number of connected components (usually 1 for a single program)
+
+Alternatively, cyclomatic complexity can be calculated as the number of decision points plus 1.
+
+ The "Date Problem" Example:
+Let’s assume we are working on a program that checks if a given date is valid, considering the month, day, and leap year conditions. The date validation logic will include:
+1. Checking if the month is valid (1-12).
+2. Checking if the day is valid depending on the month (e.g., February should have 28 or 29 days depending on whether it’s a leap year).
+3. Checking leap year conditions.
+
+ Control Flow Description:
+1. Check if the month is between 1 and 12.
+2. Check if the day is valid for the given month.
+   - For February: Check if the year is a leap year.
+   - For months with 30 days (April, June, September, November).
+   - For months with 31 days (January, March, May, etc.).
+3. Return valid or invalid based on the checks.
+
+ Control Flow Graph:
+- Nodes represent decision points or operations.
+- Edges represent transitions between those decisions.
+
+For simplicity, here's a breakdown of the key decisions:
+
+1. Check if the month is between 1 and 12 (decision 1).
+2. If month = 2 (February), check for leap year (decision 2).
+3. If leap year, check if the day is between 1 and 29; otherwise, between 1 and 28 (decision 3).
+4. If month is April, June, September, November, check if day is between 1 and 30 (decision 4).
+5. For other months, check if day is between 1 and 31 (decision 5).
+
+ Control Flow Graph Example:
+```
+(1) ----> [Check month] -----> (2)
+       |         |      
+       v         v
+ [Invalid]    [Valid Month]-----> (3) [Feb check] ---> (4) [Leap Year?]--->(5) [Day Check]
+                                            |
+                                        [Leap year] --->(6)
+                                         (valid/invalid)
+```
+
+ Cyclomatic Complexity Calculation:
+Using the formula:
+
+1. Number of nodes (N): Total decision nodes (e.g., check month, check day, check leap year).
+   - In this case, let’s say there are 6 decision points.
+   
+2. Number of edges (E): Connections between nodes.
+   - Let’s assume 7 edges (as depicted in the graph above).
+
+So, cyclomatic complexity ( V(G) = E - N + 2 ):
+[ V(G) = 7 - 6 + 2 = 3 ]
+
+Thus, the cyclomatic complexity is 3, which indicates that there are 3 independent paths through the program.
+
+ Designing Independent Paths:
+The number of independent paths corresponds to the cyclomatic complexity. Let’s now describe these paths:
+
+1. Path 1 (Valid Date - Non-leap year, February):
+   - Check month (Valid: February)
+   - Check leap year (Non-leap year)
+   - Check if day is valid (Day ≤ 28)
+
+2. Path 2 (Valid Date - Leap year, February):
+   - Check month (Valid: February)
+   - Check leap year (Leap year)
+   - Check if day is valid (Day ≤ 29)
+
+3. Path 3 (Valid Date - Other months):
+   - Check month (Valid: Not February)
+   - Check if day is valid depending on the month (31 days for Jan, Mar, etc., 30 days for Apr, Jun, etc.)
+
+ Test Cases for Each Path:
+
+| Test Case ID | Path | Input (Month, Day, Year) | Expected Output |
+|--------------|------|--------------------------|-----------------|
+| TC001        | Path 1 | (2, 28, 2023)            | Valid Date (Non-leap year) |
+| TC002        | Path 2 | (2, 29, 2024)            | Valid Date (Leap year) |
+| TC003        | Path 3 | (4, 30, 2023)            | Valid Date (April 30 days) |
+| TC004        | Path 3 | (3, 31, 2023)            | Valid Date (March 31 days) |
+| TC005        | Path 1 | (2, 30, 2023)            | Invalid Date (Non-leap year) |
+| TC006        | Path 2 | (2, 30, 2024)            | Invalid Date (Leap year) |
+
+ Conclusion:
+- Cyclomatic complexity helps identify the number of independent paths, which is essential for thorough testing.
+- For this "Date Problem," the cyclomatic complexity is 3, so you need at least 3 test cases to cover all independent paths.
