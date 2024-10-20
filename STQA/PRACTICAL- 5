@@ -1,0 +1,107 @@
+To design independent paths by taking Decision-to-Decision (DD) paths for the "Date Problem," we first need to understand what DD paths are and how they relate to cyclomatic complexity.
+
+ What is a DD Path?
+- A Decision-to-Decision (DD) path is the sequence of instructions from one decision node (a point where the control flow splits) to the next decision node.
+- A program is broken down into DD paths for easier path analysis and testing.
+- DD paths are often used in conjunction with Basis Path Testing to ensure that all independent paths in the code are tested.
+
+ Example: "Date Problem"
+Let’s consider a simple "Date Problem" where we need to check if a given date is valid. The checks include:
+1. The month should be between 1 and 12.
+2. The day should be valid for the given month.
+   - For February, the day should be between 1 and 28 or 29, depending on whether it’s a leap year.
+   - For April, June, September, and November, the day should be between 1 and 30.
+   - For other months, the day should be between 1 and 31.
+3. Check if the year is a leap year.
+
+ Steps for DD Path Analysis:
+1. Identify decision points (nodes) in the flowchart of the "Date Problem."
+2. Calculate cyclomatic complexity to identify the number of independent paths.
+3. List independent paths by examining DD paths between decision points.
+
+ Control Flow Description for the "Date Problem":
+1. Check month:
+   - Is the month between 1 and 12?
+     - Yes → Proceed to check the day.
+     - No → Invalid date.
+2. Check February (Month 2):
+   - Is it February (month = 2)?
+     - Yes → Check if it's a leap year.
+     - No → Check the day for other months.
+3. Check leap year:
+   - If the year is divisible by 4 and not by 100, or divisible by 400 → Leap year.
+4. Day check for months:
+   - For February: Day should be between 1 and 28 (non-leap) or between 1 and 29 (leap year).
+   - For months with 30 days (April, June, September, November): Day should be between 1 and 30.
+   - For months with 31 days: Day should be between 1 and 31.
+
+ Control Flow Graph for the Date Problem:
+- Nodes represent decisions (e.g., checking the month, day, leap year).
+- Edges represent transitions between decisions.
+
+ Cyclomatic Complexity Calculation:
+- Based on the control flow, cyclomatic complexity (V(G)) is calculated using the formula:
+  
+  [
+  V(G) = E - N + 2
+  ]
+  Where:
+  - ( E ) is the number of edges.
+  - ( N ) is the number of nodes.
+  
+Let’s assume that there are 6 decision points (nodes) and 7 transitions (edges) in the control flow graph. Therefore:
+
+[
+V(G) = 7 - 6 + 2 = 3
+]
+
+Cyclomatic complexity ( V(G) = 3 ), which means there are 3 independent paths to cover.
+
+ DD Path Design:
+Now, we list the independent paths using DD path analysis. These paths will cover all decision-to-decision paths in the control flow.
+
+ Path 1: Valid Date, Non-Leap Year (February)
+1. Check if the month is valid (Month = 2).
+2. Check if the year is a non-leap year.
+3. Check if the day is between 1 and 28 (non-leap year).
+
+ Path 2: Valid Date, Leap Year (February)
+1. Check if the month is valid (Month = 2).
+2. Check if the year is a leap year.
+3. Check if the day is between 1 and 29 (leap year).
+
+ Path 3: Valid Date, Other Months
+1. Check if the month is valid (Month ≠ 2).
+2. Check if the day is valid for the given month (30 or 31 days).
+
+ Independent DD Paths:
+
+1. Path 1 (February, Non-Leap Year):
+   - Month = 2
+   - Non-leap year
+   - Day between 1 and 28
+
+2. Path 2 (February, Leap Year):
+   - Month = 2
+   - Leap year
+   - Day between 1 and 29
+
+3. Path 3 (Other Months):
+   - Month ≠ 2 (e.g., April, June, September, November)
+   - Day between 1 and 30 or 31
+
+ Test Case Design:
+
+| Test Case ID | Path  | Month | Day | Year  | Expected Output      |
+|--------------|-------|-------|-----|-------|----------------------|
+| TC001        | Path 1 | 2     | 28  | 2023  | Valid (Non-leap year) |
+| TC002        | Path 2 | 2     | 29  | 2024  | Valid (Leap year)     |
+| TC003        | Path 3 | 4     | 30  | 2023  | Valid (April 30 days) |
+| TC004        | Path 3 | 3     | 31  | 2023  | Valid (March 31 days) |
+| TC005        | Path 1 | 2     | 30  | 2023  | Invalid Date (Non-leap year) |
+| TC006        | Path 2 | 2     | 30  | 2024  | Invalid Date (Leap year) |
+
+ Conclusion:
+- The Decision-to-Decision (DD) paths identify all independent paths through the decision nodes of the program.
+- Cyclomatic complexity helps ensure that all independent paths are covered in testing.
+- In the case of the "Date Problem," three independent paths ensure that all valid and invalid date scenarios are tested.
