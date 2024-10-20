@@ -1,0 +1,45 @@
+Steps to Design Test Cases Using Equivalence Class Partitioning:
+
+1. Identify input domains: 
+   - For example, the system accepts an integer between 1 and 100.
+
+2. Divide the input domain into equivalence classes: 
+   - Valid Input Class: [1, 100] (inclusive)
+   - Invalid Input Class:
+     - Less than 1 (e.g., 0, -1)
+     - Greater than 100 (e.g., 101, 102)
+
+3. Select test cases from each class:
+   - Choose one representative value from each equivalence class.
+
+ Test Case Design Based on Equivalence Partitioning:
+
+ Valid Equivalence Class:
+   - Input values between 1 and 100 (inclusive)
+   - Choose any valid representative value, such as:
+     - 1 (lower boundary)
+     - 50 (middle value)
+     - 100 (upper boundary)
+
+ Invalid Equivalence Classes:
+   - Inputs less than 1:
+     - Example: 0 or -1
+   - Inputs greater than 100:
+     - Example: 101 or 150
+
+ Test Case Example for a System with Input Range [1, 100]:
+
+| Test Case ID | Input | Equivalence Class | Expected Output |
+|--------------|-------|-------------------|-----------------|
+| TC001        | 50    | Valid (1 to 100)  | Valid Input     |
+| TC002        | 1     | Valid (1 to 100)  | Valid Input     |
+| TC003        | 100   | Valid (1 to 100)  | Valid Input     |
+| TC004        | 0     | Invalid (<1)      | Invalid Input   |
+| TC005        | 101   | Invalid (>100)    | Invalid Input   |
+
+ Key Points:
+- ECP reduces the number of test cases by identifying representative values from each equivalence class.
+- It ensures coverage of all possible scenarios without redundant test cases.
+- You can combine this technique with Boundary Value Analysis (BVA) for more comprehensive test cases.
+
+This method focuses on covering each partition rather than testing every possible input, making it an efficient testing strategy.
