@@ -1,0 +1,100 @@
+To accomplish this task, we will use the Apache POI library, which is a popular Java library for working with Excel files. Below are the steps to create a program that updates 10 student records into an Excel file.
+
+---
+
+ Step 1: Setup Apache POI in Your Java Project
+
+ 1. Add Apache POI Dependency
+If you are using Maven, include the following dependencies in your `pom.xml`:
+
+```xml
+<dependencies>
+    <!-- Apache POI for Excel -->
+    <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-ooxml</artifactId>
+        <version>5.2.3</version> <!-- Replace with the latest version -->
+    </dependency>
+    <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi</artifactId>
+        <version>5.2.3</version> <!-- Replace with the latest version -->
+    </dependency>
+</dependencies>
+```
+
+If you are not using Maven, download the Apache POI library from the [Apache POI website](https://poi.apache.org/download.html) and add the JAR files to your project’s build path.
+
+---
+
+ Step 2: Writing the Program
+
+Here’s an example Java program that updates 10 student records in an Excel file.
+
+```java
+import org.apache.poi.ss.usermodel.;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class UpdateStudentRecords {
+
+    public static void main(String[] args) {
+        // Create a new workbook and a sheet
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Student Records");
+
+        // Define the headers for the table
+        String[] headers = {"ID", "Name", "Age", "Grade"};
+        Row headerRow = sheet.createRow(0);
+        for (int i = 0; i < headers.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(headers[i]);
+        }
+
+        // Sample student data to be added to the Excel file
+        Object[][] studentData = {
+            {1, "John Doe", 20, "A"},
+            {2, "Jane Smith", 21, "B"},
+            {3, "Emily Davis", 22, "A"},
+            {4, "Michael Brown", 19, "C"},
+            {5, "Sarah Wilson", 23, "B"},
+            {6, "David Johnson", 20, "A"},
+            {7, "Laura Lee", 22, "B"},
+            {8, "James White", 24, "A"},
+            {9, "Linda Green", 21, "C"},
+            {10, "Robert Taylor", 22, "B"}
+        };
+
+        // Insert student data into the Excel sheet
+        for (int i = 0; i < studentData.length; i++) {
+            Row row = sheet.createRow(i + 1); // Start from the second row
+            for (int j = 0; j < studentData[i].length; j++) {
+                Cell cell = row.createCell(j);
+                if (studentData[i][j] instanceof String) {
+                    cell.setCellValue((String) studentData[i][j]);
+                } else if (studentData[i][j] instanceof Integer) {
+                    cell.setCellValue((Integer) studentData[i][j]);
+                }
+            }
+        }
+
+        // Write the output to an Excel file
+        try (FileOutputStream fileOut = new FileOutputStream("StudentRecords.xlsx")) {
+            workbook.write(fileOut);
+            System.out.println("Student records have been updated successfully in StudentRecords.xlsx");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Closing the workbook
+        try {
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
