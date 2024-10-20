@@ -1,0 +1,105 @@
+ AIM: Install Selenium Server and demonstrate it using a script in Java/PHP.
+
+Selenium Server (Selenium Grid) allows the execution of WebDriver tests in parallel on different machines and browsers. It is often used for crossbrowser testing. Below are the steps to install the Selenium Server and demonstrate its usage with a script in Java.
+
+
+
+ Step 1: Installing Selenium Server
+
+ 1. Download Selenium Server
+1. Download the latest version of the Selenium Server from the official Selenium website:  
+   [Selenium Downloads Page](https://www.selenium.dev/downloads/)
+2. Look for the section Selenium Server (Grid) and download the `.jar` file (e.g., `seleniumserverstandalone<version>.jar`).
+
+ 2. Install Java (if not already installed)
+Selenium Server requires Java to be installed. You can download and install the latest version of the Java Development Kit (JDK) from the official website:  
+[JDK Download](https://www.oracle.com/java/technologies/javasejdk11downloads.html)
+
+Once installed, verify the Java installation by running the following command in the terminal or command prompt:
+
+java version
+
+
+ 3. Run Selenium Server
+Open a terminal or command prompt, navigate to the folder where the `seleniumserverstandalone` jar file is located, and run the following command to start the Selenium server:
+
+
+java jar seleniumserverstandalone<version>.jar
+
+
+This will start the Selenium Grid Hub on `http://localhost:4444`. The hub will manage all WebDriver sessions.
+
+
+
+ Step 2: WebDriver Script Using Java
+
+Now, we will write a simple Selenium WebDriver script in Java to automate a basic browser interaction.
+
+ 1. Install WebDriver and Browser Driver
+ Download the appropriate WebDriver for your browser (e.g., ChromeDriver for Chrome) from:
+  [ChromeDriver Downloads](https://sites.google.com/a/chromium.org/chromedriver/)
+ Place the WebDriver executable in a location that can be referenced by your script.
+
+ 2. Setting Up the Project
+1. Create a new Java project in your preferred IDE (e.g., IntelliJ IDEA or Eclipse).
+2. Add the Selenium WebDriver JARs to your project. Download them from [Selenium Downloads](https://www.selenium.dev/downloads/) or add dependencies in `Maven`:
+
+Maven Dependency for Selenium WebDriver:
+xml
+<dependencies>
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>seleniumjava</artifactId>
+        <version>4.x.x</version>
+    </dependency>
+</dependencies>
+
+
+ 3. Writing the Selenium Test Script in Java
+Here’s a basic Java script that automates opening a browser, navigating to a website, and performing actions:
+
+java
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class SeleniumTest {
+
+    public static void main(String[] args) {
+        // Set the path to the ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path_to_chromedriver");
+
+        // Initialize WebDriver
+        WebDriver driver = new ChromeDriver();
+
+        // Open a website
+        driver.get("https://example.com");
+
+        // Print the title of the webpage
+        System.out.println("Page Title: " + driver.getTitle());
+
+        // Perform other actions as needed (e.g., form filling, clicking)
+        
+        // Close the browser
+        driver.quit();
+    }
+}
+
+
+ Step 4: Running the Tests
+
+1. Start Selenium Server:
+   Make sure the Selenium Server is running using the following command:
+
+   
+   java jar seleniumserverstandalone<version>.jar
+   
+
+2. Run the Java Script:
+    Compile and run your Java program using an IDE or terminal:
+     
+     javac SeleniumTest.java
+     java SeleniumTest
+     
+
+ Conclusion:
+You have now installed Selenium Server and demonstrated its usage with a basic WebDriver script in both Java and PHP. This setup allows for powerful browser automation and testing, and the Selenium Server Grid can be expanded for parallel, crossbrowser testing.
