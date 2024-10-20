@@ -1,0 +1,136 @@
+ AIM: Write and test a program to log in to a specific web page using Selenium WebDriver.
+
+This program will automate the process of logging into a web page using Selenium WebDriver. The example below demonstrates a login flow for a generic login page using Java. You can adapt the program to fit any web page by modifying the element locators and the URL.
+
+---
+
+ Step 1: Setup Selenium WebDriver for Java
+
+ Prerequisites:
+1. Install Java: Ensure you have Java JDK installed.
+2. Install WebDriver: Download the ChromeDriver or any other browser WebDriver.
+   - [Download ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/)
+3. Setup Selenium in your Java Project: You can use Maven to include Selenium in your project.
+
+Maven Dependency for Selenium WebDriver:
+xml
+<dependencies>
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>4.x.x</version> <!-- Replace with the latest version -->
+    </dependency>
+</dependencies>
+
+
+---
+
+ Step 2: Writing the Login Program
+
+Here’s an example of a Selenium WebDriver script in Java that logs into a web page. This example assumes the login page has fields for a username and password, and a login button.
+
+java
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class LoginAutomation {
+
+    public static void main(String[] args) {
+        // Set the path for the ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path_to_chromedriver");
+
+        // Initialize the Chrome WebDriver
+        WebDriver driver = new ChromeDriver();
+
+        // Navigate to the login page
+        driver.get("https://example.com/login");
+
+        // Locate the username field and enter the username
+        WebElement usernameField = driver.findElement(By.id("username"));
+        usernameField.sendKeys("your_username");
+
+        // Locate the password field and enter the password
+        WebElement passwordField = driver.findElement(By.id("password"));
+        passwordField.sendKeys("your_password");
+
+        // Locate the login button and click it
+        WebElement loginButton = driver.findElement(By.id("loginButton"));
+        loginButton.click();
+
+        // Optionally, verify successful login by checking the page title or URL
+        String expectedTitle = "Dashboard";
+        String actualTitle = driver.getTitle();
+
+        if (actualTitle.equals(expectedTitle)) {
+            System.out.println("Login successful!");
+        } else {
+            System.out.println("Login failed!");
+        }
+
+        // Close the browser after the test
+        driver.quit();
+    }
+}
+
+
+ Explanation of the Program:
+
+1. Setting up WebDriver:
+   java
+   System.setProperty("webdriver.chrome.driver", "path_to_chromedriver");
+   WebDriver driver = new ChromeDriver();
+   
+   This sets up the Chrome WebDriver to automate Chrome. Make sure to replace `"path_to_chromedriver"` with the path to your ChromeDriver executable.
+
+2. Navigating to the login page:
+   java
+   driver.get("https://example.com/login");
+   
+   This opens the login page of the web application you want to test.
+
+3. Filling in the username and password:
+   java
+   WebElement usernameField = driver.findElement(By.id("username"));
+   usernameField.sendKeys("your_username");
+   WebElement passwordField = driver.findElement(By.id("password"));
+   passwordField.sendKeys("your_password");
+   
+   Here, `findElement(By.id())` locates the input fields by their ID attribute. You need to adjust the ID values to match those of the web page.
+
+4. Clicking the login button:
+   java
+   WebElement loginButton = driver.findElement(By.id("loginButton"));
+   loginButton.click();
+   
+
+5. Validating the login:
+   java
+   String expectedTitle = "Dashboard";
+   String actualTitle = driver.getTitle();
+   if (actualTitle.equals(expectedTitle)) {
+       System.out.println("Login successful!");
+   } else {
+       System.out.println("Login failed!");
+   }
+   
+
+6. Closing the browser:
+   java
+   driver.quit();
+   
+   The browser will close automatically after the test.
+
+---
+
+ Step 3: Running the Program
+
+1. Compile and run the Java program in your IDE (e.g., IntelliJ IDEA or Eclipse).
+2. The browser will launch, navigate to the login page, fill in the credentials, and attempt to log in.
+3. The output in the console will either show `Login successful!` or `Login failed!` based on the result.
+
+---
+
+ Conclusion:
+This Selenium WebDriver program demonstrates how to automate the login process for a web page using Java. By adjusting the element locators and URLs, you can apply this to various login pages.
