@@ -1,0 +1,55 @@
+A Decision Table is a black-box test design technique that deals with combinations of inputs to describe the logic of a system. It helps in covering all possible conditions by creating a table of all combinations of inputs and their corresponding actions.
+
+ Example:
+Let’s consider a simple example where we validate a login system. The system takes the following inputs:
+1. Username (Valid/Invalid)
+2. Password (Valid/Invalid)
+3. Captcha (Valid/Invalid)
+
+The outcome will be:
+- Allow login if all inputs are valid.
+- Deny login if any of the inputs are invalid.
+
+ Steps to Create a Decision Table:
+
+1. Identify the conditions:
+   - Username (Valid or Invalid)
+   - Password (Valid or Invalid)
+   - Captcha (Valid or Invalid)
+
+2. Identify the possible actions:
+   - Login Allowed
+   - Login Denied
+
+3. Create a decision table:
+   List all possible combinations of the conditions and the corresponding actions.
+
+ Decision Table for the Login System:
+
+| Test Case ID | Username | Password | Captcha | Expected Action |
+|--------------|----------|----------|---------|-----------------|
+| TC001        | Valid    | Valid    | Valid   | Login Allowed   |
+| TC002        | Valid    | Valid    | Invalid | Login Denied    |
+| TC003        | Valid    | Invalid  | Valid   | Login Denied    |
+| TC004        | Valid    | Invalid  | Invalid | Login Denied    |
+| TC005        | Invalid  | Valid    | Valid   | Login Denied    |
+| TC006        | Invalid  | Valid    | Invalid | Login Denied    |
+| TC007        | Invalid  | Invalid  | Valid   | Login Denied    |
+| TC008        | Invalid  | Invalid  | Invalid | Login Denied    |
+
+ Test Cases Description:
+
+- TC001: All inputs are valid (Username, Password, Captcha). Login is allowed.
+- TC002: Captcha is invalid, so even though the Username and Password are valid, Login is denied.
+- TC003: Password is invalid, so Login is denied.
+- TC004: Both Password and Captcha are invalid, Login is denied.
+- TC005: Username is invalid, so Login is denied.
+- TC006: Username is invalid, and Captcha is invalid, so Login is denied.
+- TC007: Both Username and Password are invalid, Login is denied.
+- TC008: All inputs are invalid (Username, Password, Captcha), so Login is denied.
+
+ Conclusion:
+- The decision table lists all possible combinations of input conditions and their outcomes, ensuring comprehensive test coverage.
+- In this case, we have 8 possible combinations of inputs and actions, and each combination corresponds to a unique test case.
+
+This approach helps ensure that no combination of inputs is missed during testing, and it simplifies the logic for creating comprehensive test cases.
