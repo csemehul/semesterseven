@@ -1,0 +1,38 @@
+ Steps to Design Test Cases Using Boundary Value Analysis:
+
+1. **Identify the input domain**: The input values that your system can accept.
+   - Example: Input values range from 1 to 100.
+
+2. **Determine boundary values**:
+   - For each boundary, include:
+     - Lower bound: minimum accepted value (1).
+     - Upper bound: maximum accepted value (100).
+   - Also include values just outside the boundaries:
+     - Lower bound - 1 (0).
+     - Upper bound + 1 (101).
+
+3. **Create test cases**:
+   - You would test the following boundary values:
+     - Minimum boundary value (1).
+     - Just below the minimum boundary value (0).
+     - Just above the minimum boundary value (2).
+     - Maximum boundary value (100).
+     - Just below the maximum boundary value (99).
+     - Just above the maximum boundary value (101).
+
+### Test Case Example for a System with Input Range [1, 100]:
+
+| Test Case ID | Input | Expected Output |
+|--------------|-------|-----------------|
+| TC001        | 0     | Invalid Input (out of range) |
+| TC002        | 1     | Valid Input (lower boundary) |
+| TC003        | 2     | Valid Input |
+| TC004        | 99    | Valid Input |
+| TC005        | 100   | Valid Input (upper boundary) |
+| TC006        | 101   | Invalid Input (out of range) |
+
+### Key Points:
+- Boundary values are critical as they are most likely to uncover defects.
+- You test just below and just above the boundary in addition to the boundary itself.
+
+This technique helps in reducing the number of test cases while still providing a high chance of finding bugs.
