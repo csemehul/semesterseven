@@ -125,7 +125,3 @@ To demonstrate basic Linux commands, here’s a structured way to showcase some 
   sudo apt update
   sudo apt install package_name
   
-
----
-
-You can demonstrate each of these commands in sequence to showcase basic Linux functionality.
